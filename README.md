@@ -14,3 +14,6 @@ To deploy to an existing Heroku application via git:
 
 * git push heroku master
 * TODO: heroku install?
+
+# Running locally
+Run `rackup` and then go to [http://localhost:9292](http://localhost:9292).
