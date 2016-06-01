@@ -13,6 +13,8 @@ This app was started from Heroku's reference on
 To deploy to an existing Heroku application via git:
 
 * git push heroku master
+* heroku create
+* heroku git:remote -a <app name>   
 * TODO: heroku install?
 
 # Running locally
