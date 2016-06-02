@@ -47,7 +47,18 @@ $(document).ready(function () {
         );
     }
 
-    function getUserTaskDataPromise(userData) {
+
+    // ### setUserTaskData
+    // Sets/appends user task info to the DOM from the USER_TASKS_SUB_URL API
+    // route.
+    //
+    // #### Params
+    // * `userData` (Object) - user data as specified by the USER_DATA_URL API
+    // route.
+    //
+    // #### Returns
+    // (Promise) An ES6 Promise for chaining.
+    function setUserTaskData(userData) {
         return new Promise(function (fulfill, reject) {
             if (!userData.id) {
                 reject('User data had no valid id attr for ' +
@@ -81,6 +92,12 @@ $(document).ready(function () {
         });
     }
 
+
+    // ### getUserDataPromise
+    // Gets a Promise for user info from the USER_DATA_URL API route.
+    //
+    // #### Returns
+    // (Promise) An ES6 Promise for chaining.
     function getUserDataPromise () {
             // #### User data - get user info from the USER_DATA_URL API route.
         return new Promise(function (fulfill, reject) {
@@ -101,16 +118,22 @@ $(document).ready(function () {
 
 
     // ### Add user data
-    // Here's we're we finally add the user data.
+    // Here's we're we finally get and add the user data.
+    // Get our initial user data via our Promise function.
     getUserDataPromise()
-    // ## User Tasks data - get user info from the USER_TASKS_SUB_URL API route.
+    // Then take that user data, and get all the task data for each user.
     .then(function (userList) {
+        // We return a Promise to the chain that all our 'sub' Promises were
+        // fulfilled.
         return Promise.all(userList.map(function (userData) {
-            return getUserTaskDataPromise(userData);
+            // Return each 'sub' Promise for each individual user task data
+            // get/set. This function will actually update all our user data
+            // in the DOM.
+            return setUserTaskData(userData);
         }));
     })
     .catch(function (errorMsg) {
-        console.log('TODO - list error on page: ' + errorMsg)
+        $('span#error').show().text(errorMsg);
     });
     
 });
