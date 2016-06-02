@@ -18,9 +18,6 @@ $(document).ready(function () {
         // data is.
         USER_TASKS_SUB_URL = '/tasks';
 
-    // An ES6 promise to chain our async calls with.
-    var promise;
-
     // ### setRowForUserData
     // Sets an HTML table row string for a username column value, and 
     // a list of tasks the user has for the other column value. Specific for the
