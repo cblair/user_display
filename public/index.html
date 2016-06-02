@@ -2,10 +2,53 @@
 <html>
 <head>
     <title>Users</title>
+
+    <!-- JS libraries -->
+    <script type="text/javascript" src="/js/foundation.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/940df806e3.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    <script type="text/javascript" src="/js/users.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="/css/foundation.min.css">
 </head>
 <body>
 
-<h1>Users</h1>
+    <!-- Nav -->
+    <nav class="top-bar">
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="/"><i class="fa fa-"></i> User Dispay</a></h1>
+        </li>
+      </ul>
+      <section class="top-bar-section">
+        <ul id="nav-right" class="right">
+          <li class="divider"></li>
+          <li>
+            <a href="https://github.com/cblair/user_display">
+              <i class="fa fa-github"></i> About
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
+    <!-- User Display -->
+    <div class="row">
+        <div class="large-12 columns">
+            <h1>Users</h1>
+            <table class="user-display">
+                <thead>
+                    <tr>
+                        <td>username</td>
+                        <td>tasks</td>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>
