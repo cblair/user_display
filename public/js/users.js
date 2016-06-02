@@ -27,7 +27,7 @@ $(document).ready(function () {
     // * `username` (String) - name for the user.
     // * `taskList` (Array[String]) - list of tasks for the user.
     function setRowForUserData(username, taskList) {
-        // This is where some templating would be nice (i.e. Reach, etc).
+        // This is where some templating would be nice (i.e. React, etc).
         // But this is pretty simple, so we'll minimize dependencies.
         $('table#user-display > tbody').append(
             '<tr>\n' +
