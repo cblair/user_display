@@ -18,9 +18,6 @@ $(document).ready(function () {
         // data is.
         USER_TASKS_SUB_URL = '/tasks';
 
-    // An ES6 promise to chain our async calls with.
-    var promise;
-
     // ### setRowForUserData
     // Sets an HTML table row string for a username column value, and 
     // a list of tasks the user has for the other column value. Specific for the
@@ -30,7 +27,7 @@ $(document).ready(function () {
     // * `username` (String) - name for the user.
     // * `taskList` (Array[String]) - list of tasks for the user.
     function setRowForUserData(username, taskList) {
-        // This is where some templating would be nice (i.e. Reach, etc).
+        // This is where some templating would be nice (i.e. React, etc).
         // But this is pretty simple, so we'll minimize dependencies.
         $('table#user-display > tbody').append(
             '<tr>\n' +
