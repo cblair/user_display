@@ -47,64 +47,70 @@ $(document).ready(function () {
         );
     }
 
+    function getUserTaskDataPromise(userData) {
+        return new Promise(function (fulfill, reject) {
+            if (!userData.id) {
+                reject('User data had no valid id attr for ' +
+                    JSON.stringify(userData));
+            }
+
+            $.ajax({
+                url: [
+                    USER_DATA_URL,
+                    userData.id.toString(),
+                    USER_TASKS_SUB_URL
+                ].join('/')
+            })
+            // If successfull, fulfill the promise
+            .done(function(taskData) {
+                // Set the user data.
+                if (typeof userData.name === 'string' &&
+                    Array.isArray(taskData)) {
+                    // TODO - move this out to our overall promise success.
+                    setRowForUserData(userData.name, taskData);
+                } else {
+                    reject('User data or task data were of ' +
+                        ' unexpected types.');
+                }
+            })
+            // Otherwise, reject it.
+            .fail(function () {
+                // TODO - grab the specific error.
+                reject('Could not GET data from ' + USER_DATA_URL)
+            })
+        });
+    }
+
+    function getUserDataPromise () {
+            // #### User data - get user info from the USER_DATA_URL API route.
+        return new Promise(function (fulfill, reject) {
+            $.ajax({
+                url: USER_DATA_URL
+            })
+            // If successfull, fulfill the promise.
+            .done(function(data) {
+                fulfill(data);
+            })
+            // Otherwise, reject it.
+            .fail(function () {
+                // TODO - grab the specific error.
+                reject('Could not GET data from ' + USER_DATA_URL);
+            });
+        });
+    }
+
 
     // ### Add user data
     // Here's we're we finally add the user data.
-    promise = new Promise(
-    // #### User data - get user info from the USER_DATA_URL API route.
-    function (fullfill, reject) {
-        $.ajax({
-            url: USER_DATA_URL
-        })
-        // If successfull, fullfill the promise.
-        .done(function(data) {
-            fullfill(data);
-        })
-        // Otherwise, reject it.
-        .fail(function () {
-            // TODO - grab the specific error.
-            reject('Could not GET data from ' + USER_DATA_URL)
-        });
-    })
+    getUserDataPromise()
     // ## User Tasks data - get user info from the USER_TASKS_SUB_URL API route.
     .then(function (userList) {
-        userList.forEach(function (userData) {
-            if (userData.id) {
-                $.ajax({
-                    url: [
-                        USER_DATA_URL,
-                        userData.id.toString(),
-                        USER_TASKS_SUB_URL
-                    ].join('/')
-                })
-                // If successfull, we won't fullfill the promise, but we won't
-                // reject it.
-                // TODO - Promse might support adding multiple callback here?
-                .done(function(taskData) {
-                    // TODO - fullfill(data);
-
-                    // Set the user data.
-                    if (typeof userData.name === 'string' &&
-                        Array.isArray(taskData)) {
-                        setRowForUserData(userData.name, taskData);
-                    } else {
-                        console.error('User data or task data were of ' +
-                            ' unexpected types.');
-                    }
-                })
-                // Otherwise, reject it.
-                .fail(function () {
-                    // TODO - grab the specific error.
-                    console.error('Could not GET data from ' + USER_DATA_URL)
-                });
-            } else {
-                console.error('User data had no id attr for ' +
-                    JSON.stringify(userData));
-            }
-        });
+        return Promise.all(userList.map(function (userData) {
+            return getUserTaskDataPromise(userData);
+        }));
     })
     .catch(function (errorMsg) {
-        console.log('TODO - list error on page')
+        console.log('TODO - list error on page: ' + errorMsg)
     });
     
 });
