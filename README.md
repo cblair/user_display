@@ -12,10 +12,9 @@ This app was started from Heroku's reference on
 [Static Sites](https://devcenter.heroku.com/articles/static-sites-ruby).
 To deploy to an existing Heroku application via git:
 
-* git push heroku master
 * heroku create
-* heroku git:remote -a <app name>   
-* TODO: heroku install?
+* heroku git:remote -a <app name>
+* git push heroku master
 
 # Running locally
 Run `rackup` and then go to [http://localhost:9292](http://localhost:9292).
