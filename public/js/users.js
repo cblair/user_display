@@ -58,6 +58,10 @@ $(document).ready(function () {
     //
     // #### Returns
     // (Promise) An ES6 Promise for chaining.
+    //
+    // #### ENHANCEMENTS
+    // It would be better to return all our data here, and have a final success
+    // function in our overall Promise set the data in the DOM.
     function setUserTaskData(userData) {
         return new Promise(function (fulfill, reject) {
             if (!userData.id) {
@@ -77,7 +81,6 @@ $(document).ready(function () {
                 // Set the user data.
                 if (typeof userData.name === 'string' &&
                     Array.isArray(taskData)) {
-                    // TODO - move this out to our overall promise success.
                     setRowForUserData(userData.name, taskData);
                 } else {
                     reject('User data or task data were of ' +
@@ -86,7 +89,6 @@ $(document).ready(function () {
             })
             // Otherwise, reject it.
             .fail(function () {
-                // TODO - grab the specific error.
                 reject('Could not GET data from ' + USER_DATA_URL)
             })
         });
@@ -110,7 +112,6 @@ $(document).ready(function () {
             })
             // Otherwise, reject it.
             .fail(function () {
-                // TODO - grab the specific error.
                 reject('Could not GET data from ' + USER_DATA_URL);
             });
         });
