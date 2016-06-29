@@ -1,6 +1,6 @@
 # user_display
 A minimalist website for getting user information from a REST API, using the
-Rack gem for Ruby.
+Rack gem for Ruby. This app is running at [https://nameless-shelf-81928.herokuapp.com/](https://nameless-shelf-81928.herokuapp.com/).
 
 # Install and Prerequisites
 Run the following commands to get started running locally:
